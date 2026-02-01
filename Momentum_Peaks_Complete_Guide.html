@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Momentum Peaks | SVD-OS</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500&family=Noto+Sans+JP:wght@200;300;400;500&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg: #fafafa;
+            --surface: #ffffff;
+            --border: rgba(0, 0, 0, 0.06);
+            --gold: #b8860b;
+            --gold-light: rgba(184, 134, 11, 0.08);
+            --navy: #1a2d4a;
+            --text-primary: #1a1a1a;
+            --text-secondary: rgba(0, 0, 0, 0.5);
+            --text-tertiary: rgba(0, 0, 0, 0.35);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'Noto Sans JP', -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text-primary);
+            line-height: 1.6;
+            font-weight: 300;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .hero {
+            min-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 80px 30px;
+            background: linear-gradient(180deg, #fff 0%, var(--bg) 100%);
+        }
+
+        .hero-eyebrow {
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 30px;
+        }
+
+        .hero h1 {
+            font-size: clamp(48px, 8vw, 72px);
+            font-weight: 200;
+            letter-spacing: -1px;
+            color: var(--navy);
+            margin-bottom: 24px;
+        }
+
+        .hero-sub {
+            font-size: 16px;
+            font-weight: 300;
+            color: var(--text-secondary);
+            max-width: 500px;
+            margin-bottom: 50px;
+        }
+
+        .formula-box {
+            display: inline-block;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px 40px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+        }
+
+        .formula-box code {
+            font-family: 'SF Mono', 'Menlo', monospace;
+            font-size: 14px;
+            font-weight: 400;
+            color: var(--gold);
+            letter-spacing: 0.5px;
+        }
+
+        .section {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 100px 30px;
+        }
+
+        .section-label {
+            font-size: 10px;
+            font-weight: 500;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 10px;
+        }
+
+        .section h2 {
+            font-size: 28px;
+            font-weight: 300;
+            color: var(--navy);
+            margin-bottom: 14px;
+        }
+
+        .section-desc {
+            font-size: 15px;
+            font-weight: 300;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin-bottom: 40px;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .grid-3 {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .grid-item {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 35px 28px;
+            transition: all 0.3s ease;
+        }
+
+        .grid-item:hover {
+            border-color: var(--gold);
+            box-shadow: 0 8px 30px rgba(184, 134, 11, 0.1);
+        }
+
+        .grid-icon {
+            font-size: 26px;
+            margin-bottom: 18px;
+        }
+
+        .grid-item h3 {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--navy);
+            margin-bottom: 10px;
+        }
+
+        .grid-item p {
+            font-size: 13px;
+            font-weight: 300;
+            color: var(--text-secondary);
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--surface);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+        }
+
+        .data-table thead th {
+            text-align: left;
+            font-size: 10px;
+            font-weight: 500;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--text-tertiary);
+            padding: 20px 24px;
+            background: var(--bg);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .data-table tbody td {
+            padding: 18px 24px;
+            font-size: 14px;
+            font-weight: 300;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .data-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .data-table tbody tr:hover {
+            background: rgba(184, 134, 11, 0.03);
+        }
+
+        .index-value {
+            font-family: 'SF Mono', 'Menlo', monospace;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--gold);
+            background: var(--gold-light);
+            padding: 6px 12px;
+            border-radius: 6px;
+        }
+
+        .weekday-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+        }
+
+        @media (max-width: 768px) {
+            .weekday-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .weekday-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 30px 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .weekday-card:hover {
+            border-color: var(--gold);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
+        }
+
+        .weekday-value {
+            font-size: 32px;
+            font-weight: 200;
+            color: var(--gold);
+            margin-bottom: 8px;
+        }
+
+        .weekday-label {
+            font-size: 12px;
+            font-weight: 400;
+            color: var(--text-secondary);
+        }
+
+        .weekday-days {
+            font-size: 11px;
+            font-weight: 300;
+            color: var(--text-tertiary);
+            margin-top: 4px;
+        }
+
+        .scenario-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 45px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.03);
+        }
+
+        .scenario-tag {
+            display: inline-block;
+            font-size: 10px;
+            font-weight: 500;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--gold);
+            background: var(--gold-light);
+            padding: 6px 14px;
+            border-radius: 6px;
+            margin-bottom: 18px;
+        }
+
+        .scenario-title {
+            font-size: 20px;
+            font-weight: 300;
+            color: var(--navy);
+            margin-bottom: 28px;
+        }
+
+        .calc-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 25px;
+        }
+
+        .calc-item {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 14px 20px;
+            text-align: center;
+        }
+
+        .calc-item small {
+            display: block;
+            font-size: 9px;
+            font-weight: 400;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--text-tertiary);
+            margin-bottom: 4px;
+        }
+
+        .calc-item strong {
+            font-size: 22px;
+            font-weight: 300;
+            color: var(--navy);
+        }
+
+        .calc-op {
+            font-size: 16px;
+            color: var(--text-tertiary);
+            font-weight: 200;
+        }
+
+        .result-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--gold) 0%, #d4a84b 100%);
+            color: #fff;
+            font-size: 13px;
+            font-weight: 400;
+            padding: 12px 24px;
+            border-radius: 10px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 60px 30px;
+            border-top: 1px solid var(--border);
+            background: var(--surface);
+        }
+
+        footer p {
+            font-size: 11px;
+            font-weight: 300;
+            color: var(--text-tertiary);
+            margin-bottom: 4px;
+        }
+
+        .footer-brand {
+            color: var(--gold);
+            font-weight: 400;
+        }
+    </style>
+</head>
+
+<body>
+
+    <section class="hero">
+        <p class="hero-eyebrow">SVD-OS Intelligence</p>
+        <h1>Momentum Peaks</h1>
+        <p class="hero-sub">業界の「なんとなく」を排除し、<br>データで<strong>適正フォーキャスト</strong>を構築する。<br><span
+                style="font-size:14px; color:var(--gold);">Scale: 0.01 〜 5.00</span></p>
+        <div class="formula-box">
+            <code>TOTAL = ( Season + Weekday + Visitors ) ÷ 3 + Event</code>
+        </div>
+    </section>
+
+    <section class="section">
+        <p class="section-label">Philosophy</p>
+        <h2>「なんとなく」からの脱却</h2>
+        <p class="section-desc">飲食業界に蔓延する「経験と勘」を、365日分のデータで置き換える。</p>
+        <div class="grid-3">
+            <div class="grid-item">
+                <div class="grid-icon">🚫</div>
+                <h3>曖昧さの排除</h3>
+                <p>「去年もこうだったから」「なんとなく忙しそう」を数値で検証可能に。</p>
+            </div>
+            <div class="grid-item">
+                <div class="grid-icon">📊</div>
+                <h3>定量化</h3>
+                <p>売上・入客・季節・イベントを0.01〜5.00のスケールで統一。</p>
+            </div>
+            <div class="grid-item">
+                <div class="grid-icon">🎯</div>
+                <h3>適正フォーキャスト</h3>
+                <p>予測ではなく、データに基づく「適正な見通し」を構築。</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <p class="section-label">Season Index</p>
+        <h2>月別季節指数</h2>
+        <p class="section-desc" style="margin-bottom: 15px;">その月がそもそも忙しい時期かを示す基礎指数（0.01〜5.00）</p>
+        <p style="font-size: 12px; font-weight: 500; color: var(--gold); margin-bottom: 30px; letter-spacing: 1px;">CASE
+            OF 藻岩山（The Jewels）</p>
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>月</th>
+                    <th>指数</th>
+                    <th>主なイベント</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1月</td>
+                    <td><span class="index-value">2.00</span></td>
+                    <td>お正月</td>
+                </tr>
+                <tr>
+                    <td>2月</td>
+                    <td><span class="index-value">3.00</span></td>
+                    <td>雪まつり</td>
+                </tr>
+                <tr>
+                    <td>3月</td>
+                    <td><span class="index-value">3.00</span></td>
+                    <td>春・雪解け</td>
+                </tr>
+                <tr>
+                    <td>4月</td>
+                    <td><span class="index-value">1.00</span></td>
+                    <td>運休期間</td>
+                </tr>
+                <tr>
+                    <td>5月</td>
+                    <td><span class="index-value">3.00</span></td>
+                    <td>GW</td>
+                </tr>
+                <tr>
+                    <td>6月</td>
+                    <td><span class="index-value">4.00</span></td>
+                    <td>よさこい・神宮祭</td>
+                </tr>
+                <tr>
+                    <td>7月</td>
+                    <td><span class="index-value">5.00</span></td>
+                    <td>ビアガーデン・PMF</td>
+                </tr>
+                <tr>
+                    <td>8月</td>
+                    <td><span class="index-value">5.00</span></td>
+                    <td>夏休み・マラソン</td>
+                </tr>
+                <tr>
+                    <td>9月</td>
+                    <td><span class="index-value">5.00</span></td>
+                    <td>オータムフェスト</td>
+                </tr>
+                <tr>
+                    <td>10月</td>
+                    <td><span class="index-value">5.00</span></td>
+                    <td>紅葉</td>
+                </tr>
+                <tr>
+                    <td>11月</td>
+                    <td><span class="index-value">3.00</span></td>
+                    <td>イルミネーション</td>
+                </tr>
+                <tr>
+                    <td>12月</td>
+                    <td><span class="index-value">5.00</span></td>
+                    <td>クリスマス</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <section class="section">
+        <p class="section-label">Weekday Index</p>
+        <h2>曜日指数</h2>
+        <p class="section-desc">曜日ごとの需要パターン（0.01〜5.00）</p>
+        <div class="weekday-grid">
+            <div class="weekday-card">
+                <div class="weekday-value">5.00</div>
+                <div class="weekday-label">最大需要</div>
+                <div class="weekday-days">土曜</div>
+            </div>
+            <div class="weekday-card">
+                <div class="weekday-value">4.00</div>
+                <div class="weekday-label">週末需要</div>
+                <div class="weekday-days">日・金曜</div>
+            </div>
+            <div class="weekday-card">
+                <div class="weekday-value">3.00</div>
+                <div class="weekday-label">週末前</div>
+                <div class="weekday-days">木曜</div>
+            </div>
+            <div class="weekday-card">
+                <div class="weekday-value">2.00</div>
+                <div class="weekday-label">平日閑散</div>
+                <div class="weekday-days">月・火・水</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <p class="section-label">Scenario</p>
+        <h2>計算例</h2>
+
+        <div class="scenario-card">
+            <span class="scenario-tag">繁忙日</span>
+            <p class="scenario-title">9月15日（土）オータムフェスト期間中</p>
+            <div class="calc-row">
+                <div class="calc-item"><small>Season</small><strong>5.00</strong></div>
+                <span class="calc-op">+</span>
+                <div class="calc-item"><small>Weekday</small><strong>5.00</strong></div>
+                <span class="calc-op">+</span>
+                <div class="calc-item"><small>Visitors</small><strong>5.00</strong></div>
+                <span class="calc-op">÷3 +</span>
+                <div class="calc-item"><small>Event</small><strong>0.50</strong></div>
+                <span class="calc-op">=</span>
+                <div class="calc-item"><small>Total</small><strong>5.50</strong></div>
+            </div>
+            <span class="result-badge">→ フルスタッフ体制必須</span>
+        </div>
+
+        <div class="scenario-card">
+            <span class="scenario-tag">閑散日</span>
+            <p class="scenario-title">4月8日（月）通常営業</p>
+            <div class="calc-row">
+                <div class="calc-item"><small>Season</small><strong>1.00</strong></div>
+                <span class="calc-op">+</span>
+                <div class="calc-item"><small>Weekday</small><strong>2.00</strong></div>
+                <span class="calc-op">+</span>
+                <div class="calc-item"><small>Visitors</small><strong>2.00</strong></div>
+                <span class="calc-op">÷3 +</span>
+                <div class="calc-item"><small>Event</small><strong>0</strong></div>
+                <span class="calc-op">=</span>
+                <div class="calc-item"><small>Total</small><strong>1.67</strong></div>
+            </div>
+            <span class="result-badge">→ 最小スタッフでOK</span>
+        </div>
+    </section>
+
+    <!-- DATA FOUNDATION -->
+    <section class="section"
+        style="background: linear-gradient(180deg, var(--bg) 0%, #fff 100%); max-width: 100%; padding: 100px 30px;">
+        <div style="max-width: 900px; margin: 0 auto;">
+            <p class="section-label">Data Foundation</p>
+            <h2>365日分のデータを指標化</h2>
+            <p class="section-desc">過去の売上・入客データをすべて分析し、各日に固有のモメンタム値を算出する。</p>
+            <div class="grid-3">
+                <div class="grid-item">
+                    <div class="grid-icon">📊</div>
+                    <h3>売上データ</h3>
+                    <p>365日分の日別売上金額を収集。年間トレンドと季節変動を把握。</p>
+                </div>
+                <div class="grid-item">
+                    <div class="grid-icon">👥</div>
+                    <h3>入客データ</h3>
+                    <p>来場者数・客数を日別に記録。曜日・時間帯ごとの傾向を分析。</p>
+                </div>
+                <div class="grid-item">
+                    <div class="grid-icon">🔢</div>
+                    <h3>指標化</h3>
+                    <p>すべてのデータを0.01〜5.00のスケールに正規化し、比較可能に。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SHIFT AUTOMATION -->
+    <section class="section">
+        <p class="section-label">Vision</p>
+        <h2>人員最適化のデザイン</h2>
+        <p class="section-desc">適正フォーキャスト × スキル評価で、「勘」に頼らないシフト設計を実現する。</p>
+
+        <div class="scenario-card"
+            style="background: linear-gradient(135deg, #f8f4eb 0%, #fff 100%); border-color: var(--gold);">
+            <span class="scenario-tag">Ultimate Goal</span>
+            <p class="scenario-title">シフト自動化アプローチ</p>
+
+            <div
+                style="display: grid; grid-template-columns: 1fr auto 1fr auto 1fr; gap: 20px; align-items: center; margin-bottom: 30px;">
+                <div class="calc-item" style="background: var(--surface);">
+                    <small>Demand</small>
+                    <strong style="font-size: 16px;">Momentum<br>Peaks</strong>
+                </div>
+                <span class="calc-op" style="font-size: 24px;">×</span>
+                <div class="calc-item" style="background: var(--surface);">
+                    <small>Supply</small>
+                    <strong style="font-size: 16px;">Talent<br>Intelligence</strong>
+                </div>
+                <span class="calc-op" style="font-size: 24px;">=</span>
+                <div class="calc-item" style="background: var(--gold); border-color: var(--gold);">
+                    <small style="color: rgba(255,255,255,0.7);">Output</small>
+                    <strong style="font-size: 16px; color: #fff;">最適<br>シフト</strong>
+                </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px;">
+                <div style="background: var(--bg); border-radius: 12px; padding: 20px;">
+                    <div style="font-size: 12px; font-weight: 500; color: var(--gold); margin-bottom: 8px;">Momentum
+                        Peaks（需要側）</div>
+                    <p style="font-size: 13px; font-weight: 300; color: var(--text-secondary);">
+                        拠点別に適切な環境要因を分析し、365日の売上・入客データから「その日の営業インテンシティ（営業の強度）」を定量化</p>
+                </div>
+                <div style="background: var(--bg); border-radius: 12px; padding: 20px;">
+                    <div style="font-size: 12px; font-weight: 500; color: var(--gold); margin-bottom: 8px;">Talent
+                        Intelligence（供給側）</div>
+                    <p style="font-size: 13px; font-weight: 300; color: var(--text-secondary);">
+                        経験・役割・スキル・成長過程を定量化し、主観・客観・評価をダッシュボード化。人材配置を戦略的にデザイン。</p>
+                </div>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 40px;">
+            <p
+                style="font-size: 14px; font-weight: 300; color: var(--text-secondary); max-width: 600px; margin: 0 auto;">
+                需要と供給を数値でマッチングすることで、<br>
+                <strong style="color: var(--navy);">「適切なスキルを持つスタッフが、適切な日に、適切な人数で配置される」</strong><br>
+                シフト設計を実現する。
+            </p>
+            <div
+                style="margin-top: 30px; padding: 20px 30px; background: var(--gold); border-radius: 12px; display: inline-block;">
+                <p style="font-size: 13px; font-weight: 500; color: #fff; margin: 0;">
+                    🎯 ULTIMATE GOAL：<strong>ボタンひとつで最適シフトが提案される</strong>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>Momentum Peaks Intelligence</p>
+        <p class="footer-brand">SVD Operating System</p>
+        <p>© 2026 Sapporo Viewtiful Dining</p>
+    </footer>
+
+</body>
+
+</html>
