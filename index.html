@@ -351,6 +351,51 @@
             font-weight: 400;
         }
 
+        /* アコーディオン */
+        .accordion {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            margin-bottom: 16px;
+            overflow: hidden;
+        }
+
+        .accordion summary {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 24px;
+            cursor: pointer;
+            list-style: none;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--navy);
+        }
+
+        .accordion summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .accordion summary::after {
+            content: '+';
+            font-size: 20px;
+            font-weight: 300;
+            color: var(--gold);
+            transition: transform 0.3s ease;
+        }
+
+        .accordion[open] summary::after {
+            content: '−';
+        }
+
+        .accordion-content {
+            padding: 0 24px 24px;
+        }
+
+        .accordion .data-table {
+            box-shadow: none;
+        }
+
         /* スマホ最適化 */
         @media (max-width: 768px) {
             .hero {
@@ -580,80 +625,84 @@
     <section class="section">
         <p class="section-label">Season Index</p>
         <h2>月別季節指数</h2>
-        <p class="section-desc" style="margin-bottom: 15px;">その月がそもそも忙しい時期かを示す基礎指数（0.01〜5.00）</p>
-        <p style="font-size: 12px; font-weight: 500; color: var(--gold); margin-bottom: 30px; letter-spacing: 1px;">CASE
-            OF 藻岩山（The Jewels）</p>
-        <table class="data-table">
-            <thead>
-                <tr>
-                    <th>月</th>
-                    <th>指数</th>
-                    <th>主なイベント</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>1月</td>
-                    <td><span class="index-value">2.00</span></td>
-                    <td>お正月</td>
-                </tr>
-                <tr>
-                    <td>2月</td>
-                    <td><span class="index-value">3.00</span></td>
-                    <td>雪まつり</td>
-                </tr>
-                <tr>
-                    <td>3月</td>
-                    <td><span class="index-value">3.00</span></td>
-                    <td>春・雪解け</td>
-                </tr>
-                <tr>
-                    <td>4月</td>
-                    <td><span class="index-value">1.00</span></td>
-                    <td>運休期間</td>
-                </tr>
-                <tr>
-                    <td>5月</td>
-                    <td><span class="index-value">3.00</span></td>
-                    <td>GW</td>
-                </tr>
-                <tr>
-                    <td>6月</td>
-                    <td><span class="index-value">4.00</span></td>
-                    <td>よさこい・神宮祭</td>
-                </tr>
-                <tr>
-                    <td>7月</td>
-                    <td><span class="index-value">5.00</span></td>
-                    <td>ビアガーデン・PMF</td>
-                </tr>
-                <tr>
-                    <td>8月</td>
-                    <td><span class="index-value">5.00</span></td>
-                    <td>夏休み・マラソン</td>
-                </tr>
-                <tr>
-                    <td>9月</td>
-                    <td><span class="index-value">5.00</span></td>
-                    <td>オータムフェスト</td>
-                </tr>
-                <tr>
-                    <td>10月</td>
-                    <td><span class="index-value">5.00</span></td>
-                    <td>紅葉</td>
-                </tr>
-                <tr>
-                    <td>11月</td>
-                    <td><span class="index-value">3.00</span></td>
-                    <td>イルミネーション</td>
-                </tr>
-                <tr>
-                    <td>12月</td>
-                    <td><span class="index-value">5.00</span></td>
-                    <td>クリスマス</td>
-                </tr>
-            </tbody>
-        </table>
+        <p class="section-desc">その月がそもそも忙しい時期かを示す基礎指数（0.01〜5.00）</p>
+
+        <details class="accordion" open>
+            <summary>📅 CASE OF 藻岩山（The Jewels）</summary>
+            <div class="accordion-content">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>月</th>
+                            <th>指数</th>
+                            <th>主なイベント</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1月</td>
+                            <td><span class="index-value">2.00</span></td>
+                            <td>お正月</td>
+                        </tr>
+                        <tr>
+                            <td>2月</td>
+                            <td><span class="index-value">3.00</span></td>
+                            <td>雪まつり</td>
+                        </tr>
+                        <tr>
+                            <td>3月</td>
+                            <td><span class="index-value">3.00</span></td>
+                            <td>春・雪解け</td>
+                        </tr>
+                        <tr>
+                            <td>4月</td>
+                            <td><span class="index-value">1.00</span></td>
+                            <td>運休期間</td>
+                        </tr>
+                        <tr>
+                            <td>5月</td>
+                            <td><span class="index-value">3.00</span></td>
+                            <td>GW</td>
+                        </tr>
+                        <tr>
+                            <td>6月</td>
+                            <td><span class="index-value">4.00</span></td>
+                            <td>よさこい・神宮祭</td>
+                        </tr>
+                        <tr>
+                            <td>7月</td>
+                            <td><span class="index-value">5.00</span></td>
+                            <td>ビアガーデン・PMF</td>
+                        </tr>
+                        <tr>
+                            <td>8月</td>
+                            <td><span class="index-value">5.00</span></td>
+                            <td>夏休み・マラソン</td>
+                        </tr>
+                        <tr>
+                            <td>9月</td>
+                            <td><span class="index-value">5.00</span></td>
+                            <td>オータムフェスト</td>
+                        </tr>
+                        <tr>
+                            <td>10月</td>
+                            <td><span class="index-value">5.00</span></td>
+                            <td>紅葉</td>
+                        </tr>
+                        <tr>
+                            <td>11月</td>
+                            <td><span class="index-value">3.00</span></td>
+                            <td>イルミネーション</td>
+                        </tr>
+                        <tr>
+                            <td>12月</td>
+                            <td><span class="index-value">5.00</span></td>
+                            <td>クリスマス</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </details>
     </section>
 
     <section class="section">
@@ -661,67 +710,71 @@
         <h2>曜日・特別日指数</h2>
         <p class="section-desc">曜日および特別日ごとの需要パターン（1.00〜5.00）</p>
 
-        <!-- 通常曜日 -->
-        <p
-            style="font-size: 11px; font-weight: 500; color: var(--gold); letter-spacing: 1px; margin-bottom: 16px; margin-top: 30px;">
-            通常曜日</p>
-        <div class="weekday-grid" style="grid-template-columns: repeat(7, 1fr);">
-            <div class="weekday-card">
-                <div class="weekday-value">4.00</div>
-                <div class="weekday-days">日曜</div>
+        <!-- 通常曜日 アコーディオン -->
+        <details class="accordion" open>
+            <summary>📆 通常曜日</summary>
+            <div class="accordion-content">
+                <div class="weekday-grid" style="grid-template-columns: repeat(7, 1fr);">
+                    <div class="weekday-card">
+                        <div class="weekday-value">4.00</div>
+                        <div class="weekday-days">日曜</div>
+                    </div>
+                    <div class="weekday-card">
+                        <div class="weekday-value">2.00</div>
+                        <div class="weekday-days">月曜</div>
+                    </div>
+                    <div class="weekday-card">
+                        <div class="weekday-value">2.00</div>
+                        <div class="weekday-days">火曜</div>
+                    </div>
+                    <div class="weekday-card">
+                        <div class="weekday-value">2.00</div>
+                        <div class="weekday-days">水曜</div>
+                    </div>
+                    <div class="weekday-card">
+                        <div class="weekday-value">3.00</div>
+                        <div class="weekday-days">木曜</div>
+                    </div>
+                    <div class="weekday-card">
+                        <div class="weekday-value">4.00</div>
+                        <div class="weekday-days">金曜</div>
+                    </div>
+                    <div class="weekday-card" style="background: var(--gold); border-color: var(--gold);">
+                        <div class="weekday-value" style="color: #fff;">5.00</div>
+                        <div class="weekday-days" style="color: rgba(255,255,255,0.8);">土曜</div>
+                    </div>
+                </div>
             </div>
-            <div class="weekday-card">
-                <div class="weekday-value">2.00</div>
-                <div class="weekday-days">月曜</div>
-            </div>
-            <div class="weekday-card">
-                <div class="weekday-value">2.00</div>
-                <div class="weekday-days">火曜</div>
-            </div>
-            <div class="weekday-card">
-                <div class="weekday-value">2.00</div>
-                <div class="weekday-days">水曜</div>
-            </div>
-            <div class="weekday-card">
-                <div class="weekday-value">3.00</div>
-                <div class="weekday-days">木曜</div>
-            </div>
-            <div class="weekday-card">
-                <div class="weekday-value">4.00</div>
-                <div class="weekday-days">金曜</div>
-            </div>
-            <div class="weekday-card" style="background: var(--gold); border-color: var(--gold);">
-                <div class="weekday-value" style="color: #fff;">5.00</div>
-                <div class="weekday-days" style="color: rgba(255,255,255,0.8);">土曜</div>
-            </div>
-        </div>
+        </details>
 
-        <!-- 特別日 -->
-        <p
-            style="font-size: 11px; font-weight: 500; color: var(--gold); letter-spacing: 1px; margin-bottom: 16px; margin-top: 40px;">
-            特別日</p>
-        <div class="weekday-grid" style="grid-template-columns: repeat(5, 1fr);">
-            <div class="weekday-card">
-                <div class="weekday-value">4.00</div>
-                <div class="weekday-days">祝休</div>
+        <!-- 特別日 アコーディオン -->
+        <details class="accordion">
+            <summary>🎌 特別日（祝休・連休）</summary>
+            <div class="accordion-content">
+                <div class="weekday-grid" style="grid-template-columns: repeat(5, 1fr);">
+                    <div class="weekday-card">
+                        <div class="weekday-value">4.00</div>
+                        <div class="weekday-days">祝休</div>
+                    </div>
+                    <div class="weekday-card">
+                        <div class="weekday-value">2.00</div>
+                        <div class="weekday-days">夏連休明け</div>
+                    </div>
+                    <div class="weekday-card">
+                        <div class="weekday-value">1.00</div>
+                        <div class="weekday-days">冬連休明け</div>
+                    </div>
+                    <div class="weekday-card" style="background: var(--gold); border-color: var(--gold);">
+                        <div class="weekday-value" style="color: #fff;">5.00</div>
+                        <div class="weekday-days" style="color: rgba(255,255,255,0.8);">夏連休中日</div>
+                    </div>
+                    <div class="weekday-card">
+                        <div class="weekday-value">3.00</div>
+                        <div class="weekday-days">冬連休中日</div>
+                    </div>
+                </div>
             </div>
-            <div class="weekday-card">
-                <div class="weekday-value">2.00</div>
-                <div class="weekday-days">夏連休明け</div>
-            </div>
-            <div class="weekday-card">
-                <div class="weekday-value">1.00</div>
-                <div class="weekday-days">冬連休明け</div>
-            </div>
-            <div class="weekday-card" style="background: var(--gold); border-color: var(--gold);">
-                <div class="weekday-value" style="color: #fff;">5.00</div>
-                <div class="weekday-days" style="color: rgba(255,255,255,0.8);">夏連休中日</div>
-            </div>
-            <div class="weekday-card">
-                <div class="weekday-value">3.00</div>
-                <div class="weekday-days">冬連休中日</div>
-            </div>
-        </div>
+        </details>
     </section>
 
     <section class="section">
