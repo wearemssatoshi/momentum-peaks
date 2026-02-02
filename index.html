@@ -578,28 +578,90 @@
 
     <section class="section">
         <p class="section-label">Weekday Index</p>
-        <h2>曜日指数</h2>
-        <p class="section-desc">曜日ごとの需要パターン（0.01〜5.00）</p>
-        <div class="weekday-grid">
-            <div class="weekday-card">
-                <div class="weekday-value">5.00</div>
-                <div class="weekday-label">最大需要</div>
-                <div class="weekday-days">土曜</div>
+        <h2>曜日・特別日指数</h2>
+        <p class="section-desc">曜日および特別日ごとの需要パターン（1〜5）</p>
+
+        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px;">
+            <!-- 通常曜日 -->
+            <div>
+                <p
+                    style="font-size: 11px; font-weight: 500; color: var(--gold); letter-spacing: 1px; margin-bottom: 16px;">
+                    通常曜日</p>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>曜日</th>
+                            <th>指数</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>日曜</td>
+                            <td><span class="index-value">4</span></td>
+                        </tr>
+                        <tr>
+                            <td>月曜</td>
+                            <td><span class="index-value">2</span></td>
+                        </tr>
+                        <tr>
+                            <td>火曜</td>
+                            <td><span class="index-value">2</span></td>
+                        </tr>
+                        <tr>
+                            <td>水曜</td>
+                            <td><span class="index-value">2</span></td>
+                        </tr>
+                        <tr>
+                            <td>木曜</td>
+                            <td><span class="index-value">3</span></td>
+                        </tr>
+                        <tr>
+                            <td>金曜</td>
+                            <td><span class="index-value">4</span></td>
+                        </tr>
+                        <tr>
+                            <td>土曜</td>
+                            <td><span class="index-value">5</span></td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
-            <div class="weekday-card">
-                <div class="weekday-value">4.00</div>
-                <div class="weekday-label">週末需要</div>
-                <div class="weekday-days">日・金曜</div>
-            </div>
-            <div class="weekday-card">
-                <div class="weekday-value">3.00</div>
-                <div class="weekday-label">週末前</div>
-                <div class="weekday-days">木曜</div>
-            </div>
-            <div class="weekday-card">
-                <div class="weekday-value">2.00</div>
-                <div class="weekday-label">平日閑散</div>
-                <div class="weekday-days">月・火・水</div>
+
+            <!-- 特別日 -->
+            <div>
+                <p
+                    style="font-size: 11px; font-weight: 500; color: var(--gold); letter-spacing: 1px; margin-bottom: 16px;">
+                    特別日</p>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>区分</th>
+                            <th>指数</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>祝休</td>
+                            <td><span class="index-value">4</span></td>
+                        </tr>
+                        <tr>
+                            <td>夏連休明け</td>
+                            <td><span class="index-value">2</span></td>
+                        </tr>
+                        <tr>
+                            <td>冬連休明け</td>
+                            <td><span class="index-value">1</span></td>
+                        </tr>
+                        <tr>
+                            <td>夏連休中日</td>
+                            <td><span class="index-value">5</span></td>
+                        </tr>
+                        <tr>
+                            <td>冬連休中日</td>
+                            <td><span class="index-value">3</span></td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </section>
