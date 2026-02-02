@@ -360,45 +360,94 @@
         <h1>Momentum Peaks</h1>
         <p class="hero-sub">業界の「なんとなく」を排除し、<br>データで<strong>適正フォーキャスト</strong>を構築する。<br><span
                 style="font-size:14px; color:var(--gold);">Scale: 0.01 〜 5.00</span></p>
-        <div class="formula-box">
-            <code>TOTAL = ( Season + Weekday + Visitors ) ÷ 3 + Event</code>
-        </div>
 
-        <!-- Key Factors -->
-        <div
-            style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 40px; max-width: 800px;">
-            <div style="text-align: center; padding: 16px;">
+        <!-- 2層構造の公式 -->
+        <div style="max-width: 900px; width: 100%;">
+
+            <!-- Layer 1: 拠点レベル -->
+            <div
+                style="background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 30px; margin-bottom: 20px;">
                 <div
-                    style="font-size: 11px; font-weight: 500; color: var(--gold); letter-spacing: 1px; margin-bottom: 6px;">
-                    SEASON</div>
-                <div style="font-size: 13px; font-weight: 300; color: var(--text-secondary);">季節指数</div>
-                <div style="font-size: 11px; font-weight: 300; color: var(--text-tertiary); margin-top: 4px;">月ごとの繁閑
+                    style="font-size: 10px; font-weight: 500; letter-spacing: 2px; color: var(--gold); margin-bottom: 16px;">
+                    LAYER 1 ─ 拠点（施設）レベル【定数】</div>
+
+                <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 20px;">
+                    <div style="background: var(--bg); border-radius: 10px; padding: 16px; text-align: center;">
+                        <div style="font-size: 18px; font-weight: 300; color: var(--navy);">①</div>
+                        <div style="font-size: 11px; font-weight: 500; color: var(--gold); margin: 6px 0;">SEASON</div>
+                        <div style="font-size: 11px; color: var(--text-secondary);">月別季節指数</div>
+                        <div style="font-size: 10px; color: var(--text-tertiary); margin-top: 4px;">拠点毎に月別5段階</div>
+                    </div>
+                    <div style="background: var(--bg); border-radius: 10px; padding: 16px; text-align: center;">
+                        <div style="font-size: 18px; font-weight: 300; color: var(--navy);">②</div>
+                        <div style="font-size: 11px; font-weight: 500; color: var(--gold); margin: 6px 0;">WEEKDAY</div>
+                        <div style="font-size: 11px; color: var(--text-secondary);">月別曜日指数</div>
+                        <div style="font-size: 10px; color: var(--text-tertiary); margin-top: 4px;">曜日5段階×月回数平均</div>
+                    </div>
+                    <div style="background: var(--bg); border-radius: 10px; padding: 16px; text-align: center;">
+                        <div style="font-size: 18px; font-weight: 300; color: var(--navy);">③</div>
+                        <div style="font-size: 11px; font-weight: 500; color: var(--gold); margin: 6px 0;">VISITORS
+                        </div>
+                        <div style="font-size: 11px; color: var(--text-secondary);">月別来場者指数</div>
+                        <div style="font-size: 10px; color: var(--text-tertiary); margin-top: 4px;">施設来場者データ</div>
+                    </div>
+                    <div
+                        style="background: linear-gradient(135deg, var(--gold-light) 0%, var(--surface) 100%); border: 1px solid var(--gold); border-radius: 10px; padding: 16px; text-align: center;">
+                        <div style="font-size: 18px; font-weight: 300; color: var(--gold);">④</div>
+                        <div style="font-size: 11px; font-weight: 500; color: var(--gold); margin: 6px 0;">KEY FACTOR ①
+                        </div>
+                        <div style="font-size: 11px; color: var(--navy);">月別拠点指数</div>
+                        <div style="font-size: 10px; color: var(--text-tertiary); margin-top: 4px;">(①+②+③)/3</div>
+                    </div>
                 </div>
             </div>
-            <div style="text-align: center; padding: 16px;">
+
+            <!-- Layer 2: 店舗レベル -->
+            <div
+                style="background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 30px; margin-bottom: 20px;">
                 <div
-                    style="font-size: 11px; font-weight: 500; color: var(--gold); letter-spacing: 1px; margin-bottom: 6px;">
-                    WEEKDAY</div>
-                <div style="font-size: 13px; font-weight: 300; color: var(--text-secondary);">曜日指数</div>
-                <div style="font-size: 11px; font-weight: 300; color: var(--text-tertiary); margin-top: 4px;">曜日ごとの波
+                    style="font-size: 10px; font-weight: 500; letter-spacing: 2px; color: var(--gold); margin-bottom: 16px;">
+                    LAYER 2 ─ 店舗レベル【実績】</div>
+
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;">
+                    <div
+                        style="background: linear-gradient(135deg, var(--gold-light) 0%, var(--surface) 100%); border: 1px solid var(--gold); border-radius: 10px; padding: 16px; text-align: center;">
+                        <div style="font-size: 18px; font-weight: 300; color: var(--gold);">④</div>
+                        <div style="font-size: 11px; font-weight: 500; color: var(--gold); margin: 6px 0;">KEY FACTOR ①
+                        </div>
+                        <div style="font-size: 11px; color: var(--navy);">月別拠点指数</div>
+                        <div style="font-size: 10px; color: var(--text-tertiary); margin-top: 4px;">定数（上記より）</div>
+                    </div>
+                    <div style="background: var(--bg); border-radius: 10px; padding: 16px; text-align: center;">
+                        <div style="font-size: 18px; font-weight: 300; color: var(--navy);">⑤</div>
+                        <div style="font-size: 11px; font-weight: 500; color: var(--gold); margin: 6px 0;">KEY FACTOR ②
+                        </div>
+                        <div style="font-size: 11px; color: var(--text-secondary);">月別売上実績</div>
+                        <div style="font-size: 10px; color: var(--text-tertiary); margin-top: 4px;">過去月別平均値</div>
+                    </div>
+                    <div style="background: var(--bg); border-radius: 10px; padding: 16px; text-align: center;">
+                        <div style="font-size: 18px; font-weight: 300; color: var(--navy);">⑥</div>
+                        <div style="font-size: 11px; font-weight: 500; color: var(--gold); margin: 6px 0;">KEY FACTOR ③
+                        </div>
+                        <div style="font-size: 11px; color: var(--text-secondary);">月別来客数</div>
+                        <div style="font-size: 10px; color: var(--text-tertiary); margin-top: 4px;">過去月別平均値</div>
+                    </div>
                 </div>
             </div>
-            <div style="text-align: center; padding: 16px;">
+
+            <!-- Final Formula -->
+            <div
+                style="background: linear-gradient(135deg, var(--gold) 0%, #d4a84b 100%); border-radius: 16px; padding: 30px; text-align: center;">
                 <div
-                    style="font-size: 11px; font-weight: 500; color: var(--gold); letter-spacing: 1px; margin-bottom: 6px;">
-                    VISITORS</div>
-                <div style="font-size: 13px; font-weight: 300; color: var(--text-secondary);">来場者指数</div>
-                <div style="font-size: 11px; font-weight: 300; color: var(--text-tertiary); margin-top: 4px;">拠点への人流
-                </div>
-            </div>
-            <div style="text-align: center; padding: 16px;">
+                    style="font-size: 10px; font-weight: 500; letter-spacing: 2px; color: rgba(255,255,255,0.7); margin-bottom: 12px;">
+                    ⑦ FINAL OUTPUT</div>
                 <div
-                    style="font-size: 11px; font-weight: 500; color: var(--gold); letter-spacing: 1px; margin-bottom: 6px;">
-                    EVENT</div>
-                <div style="font-size: 13px; font-weight: 300; color: var(--text-secondary);">イベント加算</div>
-                <div style="font-size: 11px; font-weight: 300; color: var(--text-tertiary); margin-top: 4px;">特別期間ブースト
+                    style="font-family: 'SF Mono', 'Menlo', monospace; font-size: 16px; font-weight: 500; color: #fff; margin-bottom: 8px;">
+                    月別 Momentum Peaks = ( KF① + KF② + KF③ ) ÷ 3
                 </div>
+                <div style="font-size: 12px; color: rgba(255,255,255,0.8);">定数と実績を統合した適正フォーキャスト</div>
             </div>
+
         </div>
     </section>
 
