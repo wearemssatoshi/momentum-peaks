@@ -32,7 +32,7 @@
             background: var(--bg);
             color: var(--text-primary);
             line-height: 1.6;
-            font-weight: 300;
+            font-weight: 400;
             -webkit-font-smoothing: antialiased;
         }
 
@@ -66,7 +66,7 @@
 
         .hero-sub {
             font-size: 16px;
-            font-weight: 300;
+            font-weight: 400;
             color: var(--text-secondary);
             max-width: 500px;
             margin-bottom: 50px;
@@ -113,7 +113,7 @@
 
         .section-desc {
             font-size: 15px;
-            font-weight: 300;
+            font-weight: 400;
             color: var(--text-secondary);
             max-width: 600px;
             margin-bottom: 40px;
@@ -158,7 +158,7 @@
 
         .grid-item p {
             font-size: 13px;
-            font-weight: 300;
+            font-weight: 400;
             color: var(--text-secondary);
         }
 
@@ -186,7 +186,7 @@
         .data-table tbody td {
             padding: 18px 24px;
             font-size: 14px;
-            font-weight: 300;
+            font-weight: 400;
             border-bottom: 1px solid var(--border);
         }
 
@@ -250,7 +250,7 @@
 
         .weekday-days {
             font-size: 11px;
-            font-weight: 300;
+            font-weight: 400;
             color: var(--text-tertiary);
             margin-top: 4px;
         }
@@ -341,7 +341,7 @@
 
         footer p {
             font-size: 11px;
-            font-weight: 300;
+            font-weight: 400;
             color: var(--text-tertiary);
             margin-bottom: 4px;
         }
@@ -349,6 +349,86 @@
         .footer-brand {
             color: var(--gold);
             font-weight: 400;
+        }
+
+        /* スマホ最適化 */
+        @media (max-width: 768px) {
+            .hero {
+                min-height: auto;
+                padding: 60px 20px;
+            }
+
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .hero-sub {
+                font-size: 14px;
+            }
+
+            .section {
+                padding: 60px 20px;
+            }
+
+            .section h2 {
+                font-size: 22px;
+            }
+
+            /* Layer グリッドをスマホ用に調整 */
+            .hero>div[style*="max-width: 900px"]>div[style*="grid-template-columns: repeat(4"] {
+                display: grid !important;
+                grid-template-columns: repeat(2, 1fr) !important;
+            }
+
+            .hero>div[style*="max-width: 900px"]>div[style*="grid-template-columns: repeat(3"] {
+                display: grid !important;
+                grid-template-columns: 1fr !important;
+            }
+
+            .weekday-grid {
+                grid-template-columns: repeat(4, 1fr) !important;
+                gap: 8px;
+            }
+
+            .weekday-card {
+                padding: 12px 8px;
+            }
+
+            .weekday-value {
+                font-size: 16px;
+            }
+
+            .weekday-days {
+                font-size: 10px;
+            }
+
+            .data-table thead th,
+            .data-table tbody td {
+                padding: 12px 16px;
+                font-size: 12px;
+            }
+
+            .scenario-card {
+                padding: 25px;
+            }
+
+            .calc-row {
+                flex-direction: column;
+            }
+
+            .calc-item {
+                width: 100%;
+            }
+
+            footer {
+                padding: 40px 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .weekday-grid {
+                grid-template-columns: repeat(3, 1fr) !important;
+            }
         }
     </style>
 </head>
