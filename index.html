@@ -396,6 +396,38 @@
             box-shadow: none;
         }
 
+        /* Layer Grid */
+        .layer-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+        }
+
+        /* Final Output */
+        .final-output {
+            font-family: 'SF Mono', 'Menlo', monospace;
+            font-size: 18px;
+            font-weight: 600;
+            color: #fff;
+        }
+
+        /* Vision Grid */
+        .vision-grid {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr auto 1fr;
+            gap: 16px;
+            align-items: center;
+        }
+
+        /* Ultimate Goal Box */
+        .ultimate-goal-box {
+            margin-top: 30px;
+            padding: 28px 40px;
+            background: var(--gold);
+            border-radius: 16px;
+            display: inline-block;
+        }
+
         /* スマホ最適化 */
         @media (max-width: 768px) {
             .hero {
@@ -468,11 +500,60 @@
             footer {
                 padding: 40px 20px;
             }
+
+            /* LAYER グリッド スマホ最適化 */
+            .layer-grid {
+                grid-template-columns: repeat(2, 1fr) !important;
+            }
+
+            /* Final Output スマホ */
+            .final-output {
+                font-size: 14px !important;
+                line-height: 1.5;
+            }
+
+            /* Vision Grid スマホ */
+            .vision-grid {
+                grid-template-columns: 1fr !important;
+                gap: 12px !important;
+            }
+
+            /* Ultimate Goal スマホ */
+            .ultimate-goal-box {
+                padding: 24px 20px !important;
+            }
+
+            .ultimate-goal-box p {
+                font-size: 14px !important;
+            }
+        }
+
+        /* 通常曜日 PC&スマホ共通調整 */
+        .accordion-content .weekday-grid {
+            grid-template-columns: repeat(4, 1fr) !important;
         }
 
         @media (max-width: 480px) {
             .weekday-grid {
                 grid-template-columns: repeat(3, 1fr) !important;
+            }
+
+            .accordion-content .weekday-grid {
+                grid-template-columns: repeat(4, 1fr) !important;
+            }
+
+            /* FINAL OUTPUT スマホフォントサイズ */
+            .hero div[style*="font-family: 'SF Mono'"] {
+                font-size: 14px !important;
+            }
+
+            /* Ultimate Goal スマホ調整 */
+            .scenario-card div[style*="padding: 28px 40px"] {
+                padding: 20px 24px !important;
+            }
+
+            .scenario-card div[style*="padding: 28px 40px"] p[style*="font-size: 16px"] {
+                font-size: 14px !important;
             }
         }
     </style>
@@ -496,7 +577,8 @@
                     style="font-size: 12px; font-weight: 600; letter-spacing: 2px; color: var(--gold); margin-bottom: 16px;">
                     LAYER 1 ─ 拠点（施設）レベル【定数】</div>
 
-                <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 20px;">
+                <div class="layer-grid"
+                    style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 20px;">
                     <div style="background: var(--bg); border-radius: 10px; padding: 16px; text-align: center;">
                         <div style="font-size: 18px; font-weight: 300; color: var(--navy);">①</div>
                         <div style="font-size: 11px; font-weight: 500; color: var(--gold); margin: 6px 0;">SEASON</div>
