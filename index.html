@@ -931,41 +931,61 @@
         <h2>人員最適化のデザイン</h2>
         <p class="section-desc" style="margin: 0 auto;">「勘」に頼らない、データドリブンなシフト設計を実現する。</p>
 
-        <!-- Formula: Simple Flow -->
-        <div style="margin: 50px 0; display: flex; flex-direction: column; align-items: center; gap: 16px;">
-            <div style="display: flex; align-items: center; gap: 16px; flex-wrap: wrap; justify-content: center;">
-                <div
-                    style="background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px 28px; text-align: center;">
+        <!-- Formula: 横長縦積み with 解説 -->
+        <div style="margin: 50px auto; max-width: 700px;">
+            <!-- DEMAND -->
+            <div
+                style="background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 24px 30px; margin-bottom: 16px; display: flex; align-items: center; gap: 24px;">
+                <div style="min-width: 140px; text-align: center;">
                     <div
-                        style="font-size: 10px; font-weight: 500; letter-spacing: 1px; color: var(--gold); margin-bottom: 6px;">
+                        style="font-size: 10px; font-weight: 600; letter-spacing: 2px; color: var(--gold); margin-bottom: 6px;">
                         DEMAND</div>
-                    <div style="font-size: 16px; font-weight: 500; color: var(--navy);">Momentum Peaks</div>
+                    <div style="font-size: 18px; font-weight: 500; color: var(--navy);">Momentum Peaks</div>
                 </div>
-                <div style="font-size: 24px; color: var(--gold);">×</div>
-                <div
-                    style="background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px 28px; text-align: center;">
-                    <div
-                        style="font-size: 10px; font-weight: 500; letter-spacing: 1px; color: var(--gold); margin-bottom: 6px;">
-                        SUPPLY</div>
-                    <div style="font-size: 16px; font-weight: 500; color: var(--navy);">Talent Intelligence</div>
+                <div style="flex: 1; text-align: left; padding-left: 24px; border-left: 1px solid var(--border);">
+                    <p style="font-size: 13px; color: var(--text-secondary); margin: 0; line-height: 1.6;">
+                        拠点別に環境要因を分析し、365日の売上・入客データから<strong style="color: var(--navy);">「その日の営業インテンシティ」</strong>を定量化する。
+                    </p>
                 </div>
             </div>
-            <div style="font-size: 24px; color: var(--gold);">↓</div>
-            <div style="background: var(--gold); border-radius: 12px; padding: 20px 36px; text-align: center;">
+
+            <!-- × -->
+            <div style="text-align: center; font-size: 24px; color: var(--gold); margin: 12px 0;">×</div>
+
+            <!-- SUPPLY -->
+            <div
+                style="background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 24px 30px; margin-bottom: 16px; display: flex; align-items: center; gap: 24px;">
+                <div style="min-width: 140px; text-align: center;">
+                    <div
+                        style="font-size: 10px; font-weight: 600; letter-spacing: 2px; color: var(--gold); margin-bottom: 6px;">
+                        SUPPLY</div>
+                    <div style="font-size: 18px; font-weight: 500; color: var(--navy);">Talent Intelligence</div>
+                </div>
+                <div style="flex: 1; text-align: left; padding-left: 24px; border-left: 1px solid var(--border);">
+                    <p style="font-size: 13px; color: var(--text-secondary); margin: 0; line-height: 1.6;">
+                        経験・役割・スキル・成長過程を定量化し、<strong style="color: var(--navy);">人材配置を戦略的にデザイン</strong>する。</p>
+                </div>
+            </div>
+
+            <!-- ↓ -->
+            <div style="text-align: center; font-size: 24px; color: var(--gold); margin: 16px 0;">↓</div>
+
+            <!-- OUTPUT -->
+            <div
+                style="background: var(--gold); border-radius: 16px; padding: 24px 30px; display: flex; align-items: center; gap: 24px;">
+                <div style="min-width: 140px; text-align: center;">
+                    <div
+                        style="font-size: 10px; font-weight: 600; letter-spacing: 2px; color: rgba(255,255,255,0.8); margin-bottom: 6px;">
+                        OUTPUT</div>
+                    <div style="font-size: 18px; font-weight: 600; color: #fff;">最適シフト</div>
+                </div>
                 <div
-                    style="font-size: 10px; font-weight: 500; letter-spacing: 1px; color: rgba(255,255,255,0.8); margin-bottom: 6px;">
-                    OUTPUT</div>
-                <div style="font-size: 18px; font-weight: 600; color: #fff;">最適シフト</div>
+                    style="flex: 1; text-align: left; padding-left: 24px; border-left: 1px solid rgba(255,255,255,0.3);">
+                    <p style="font-size: 13px; color: rgba(255,255,255,0.9); margin: 0; line-height: 1.6;">
+                        <strong>適切なスキル × 適切な日 × 適切な人数</strong> のシフト設計を実現する。</p>
+                </div>
             </div>
         </div>
-
-        <!-- Description -->
-        <p
-            style="font-size: 14px; color: var(--text-secondary); max-width: 500px; margin: 0 auto 50px; line-height: 1.8;">
-            需要と供給を数値でマッチング。<br>
-            <strong style="color: var(--navy);">適切なスキル × 適切な日 × 適切な人数</strong><br>
-            のシフト設計を実現する。
-        </p>
 
         <!-- Ultimate Goal -->
         <div
